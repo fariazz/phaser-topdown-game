@@ -21,10 +21,10 @@ TopDownGame.Game.prototype = {
     this.backgroundlayer.resizeWorld();
 
     this.createItems();
-    this.createDoors();    
+    this.createDoors();
 
     //create player
-    var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer')
+    var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
     this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
     this.game.physics.arcade.enable(this.player);
 
@@ -39,7 +39,6 @@ TopDownGame.Game.prototype = {
     //create items
     this.items = this.game.add.group();
     this.items.enableBody = true;
-    var item;    
     result = this.findObjectsByType('item', this.map, 'objectsLayer');
     result.forEach(function(element){
       this.createFromTiledObject(element, this.items);
@@ -58,7 +57,7 @@ TopDownGame.Game.prototype = {
 
   //find objects in a Tiled layer that containt a property called "type" equal to a certain value
   findObjectsByType: function(type, map, layer) {
-    var result = new Array();
+    var result = [];
     map.objects[layer].forEach(function(element){
       if(element.properties.type === type) {
         //Phaser uses top left, Tiled bottom left so we have to adjust
@@ -66,7 +65,7 @@ TopDownGame.Game.prototype = {
         //so they might not be placed in the exact position as in Tiled
         element.y -= map.tileHeight;
         result.push(element);
-      }      
+      }
     });
     return result;
   },
